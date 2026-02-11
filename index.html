@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Valentine Quiz</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <div class="page">
+      <div class="wrap">
+        <div class="scorePill" role="status" aria-live="polite">
+          <span class="scoreLabel">Score:</span>
+          <span class="scoreValue" id="scoreValue">0/0</span>
+        </div>
+
+        <!-- QUIZ -->
+        <section id="stageQuiz" class="stage" aria-hidden="false">
+          <div class="card">
+            <h2 class="question" id="questionText"></h2>
+
+            <div class="options" role="list" id="options"></div>
+
+            <div class="footer">
+              <div class="meta" id="metaBadge"></div>
+              <div class="actions" id="quizActions"></div>
+            </div>
+          </div>
+
+          <p class="tinyNote">
+            Xэр сайн мэддэгийг чинь <code>харийлдаа</code>
+          </p>
+        </section>
+
+        <!-- CELEBRATE -->
+        <section id="stageCelebrate" class="stage" aria-hidden="true">
+          <div class="finalCard" role="dialog" aria-modal="true">
+            <h2 class="finalTitle">Congratulations! 🎉</h2>
+            <p class="finalSub">You finished it 😌💘</p>
+            <p class="finalQuestion">But I have another question…</p>
+
+            <button class="finalPrimaryBtn" id="btnToValentine">
+              Next question →
+            </button>
+
+            <button class="finalGhostBtn" id="btnRestartFromCelebrate">
+              Restart quiz
+            </button>
+          </div>
+        </section>
+
+        <!-- VALENTINE -->
+        <section id="stageValentine" class="stage" aria-hidden="true">
+          <div class="finalCard" role="dialog" aria-modal="true">
+            <h2 class="finalTitle">Will you be my Valentine? 💘</h2>
+
+            <div class="valentineArea" id="valentineArea">
+              <button class="valBtn valBtnYes" id="btnYes">Yes 💖</button>
+
+              <button class="valBtn valBtnNo" id="btnNo">No 🙃</button>
+            </div>
+
+            <div class="yesCelebrateText" id="yesCelebrateText" aria-live="polite" hidden>
+              <p class="valResultBig">YAAAAYYYYY 😭💖💖💖</p>
+              <p class="valResultBigSub">Now you’re stuck with me 😼💘</p>
+            </div>
+
+            <div style="margin-top: 14px">
+              <button class="finalGhostBtn" id="btnRestartFromValentine">
+                Restart quiz
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- STICKER OVERLAY -->
+      <div id="stickerOverlay" class="stickerOverlay" aria-hidden="true" hidden>
+        <div class="stickerLayer">
+          <div class="stickerWrap">
+            <img id="stickerImg" class="sticker" alt="" draggable="false" />
+            <div id="stickerText" class="stickerText"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONFETTI -->
+      <div id="confetti" class="confettiFullPage" aria-hidden="true" hidden></div>
+
+      <!-- YES POP -->
+      <div id="yesPop" class="yesPopText" hidden>YAAAAYYYYY 😭💖</div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
