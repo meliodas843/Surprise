@@ -527,6 +527,21 @@ body{
   font-size: 20px;          /* ✅ bigger */
   color: rgba(15,23,42,.82);
 }
+.q-img{
+  /* ❌ remove display:block; */
+  margin: 14px auto;
+  max-width: 220px;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  object-fit: contain;
+  box-shadow: 0 16px 30px rgba(0,0,0,.15);
+}
+
+/* ✅ put this at the END of your CSS file */
+[hidden]{
+  display:none !important;
+}
 
 @keyframes yesPop{
   0%   { opacity: 0; transform: translateX(-50%) translateY(12px) scale(.75); }

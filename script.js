@@ -1,3 +1,8 @@
+// ===========================
+// Valentine Quiz — FULL script.js
+// (Q5 shows question image, sticker cats show again)
+// ===========================
+
 const wrongImg = "./cat_with_new_text.png";
 const correctImg = "./two_cats_high_five_no_background.png";
 
@@ -20,7 +25,10 @@ const QUESTIONS = [
     text: "Minii idej chaddaggui zuil?",
     options: ["Haluun Nogoo", "Songino", "Byslag", "Ooh"],
     correctIndex: 0,
-    popup: { correct: "Yes baby its disgusting", wrong: "Chi ch namaig medeh boloogv bainda" },
+    popup: {
+      correct: "Yes baby its disgusting",
+      wrong: "Chi ch namaig medeh boloogv bainda",
+    },
   },
   {
     id: 4,
@@ -29,12 +37,24 @@ const QUESTIONS = [
     correctIndex: 3,
     popup: { correct: "Okay I'll pack my things", wrong: "Go by youreself :(" },
   },
+  {
+    id: 5,
+    text: "Ene zurgiig haana awhuulsan be?",
+    image: "emart.jpg", // put emart.jpg next to index.html OR use ./images/emart.jpg
+    options: ["Airport", "China", "Emart", "PC"],
+    correctIndex: 2,
+    popup: {
+      correct: "Oi sanamj saitai baina Mundag",
+      wrong: "Chi ch unuudur buidan deer unthiin bainda",
+    },
+  },
 ];
 
 // ---------- Helpers ----------
 function rand(min, max) {
   return Math.random() * (max - min) + min;
 }
+
 function makeConfettiPieces(count = 260) {
   const now = Date.now();
   return Array.from({ length: count }).map((_, i) => ({
@@ -57,6 +77,7 @@ const el = {
   stageValentine: document.getElementById("stageValentine"),
 
   questionText: document.getElementById("questionText"),
+  questionImg: document.getElementById("questionImg"),
   options: document.getElementById("options"),
   metaBadge: document.getElementById("metaBadge"),
   quizActions: document.getElementById("quizActions"),
@@ -132,11 +153,17 @@ function renderScore() {
   el.scoreValue.textContent = `${score}/${total}`;
 }
 
+// ✅ IMPORTANT: use `hidden` attribute (NOT style.display)
+// because your CSS has [hidden]{ display:none !important; }
 function clearSticker() {
   sticker = null;
   popupText = "";
   el.stickerOverlay.hidden = true;
   el.stickerText.textContent = "";
+
+  el.stickerImg.hidden = true;
+  el.stickerImg.removeAttribute("src");
+  el.stickerImg.className = "sticker";
 }
 
 function showSticker(kind) {
@@ -149,12 +176,14 @@ function showSticker(kind) {
 
   el.stickerOverlay.hidden = false;
 
+  // hide sticker image ONLY for Q2 and Q3 (as you wanted earlier)
   const hideImage = q.id === 2 || q.id === 3;
 
   if (hideImage) {
-    el.stickerImg.style.display = "none";
+    el.stickerImg.hidden = true;
+    el.stickerImg.removeAttribute("src");
   } else {
-    el.stickerImg.style.display = "block";
+    el.stickerImg.hidden = false;
     el.stickerImg.src = kind === "wrong" ? wrongImg : correctImg;
     el.stickerImg.className = `sticker ${kind === "wrong" ? "sticker--wrong" : ""}`;
   }
@@ -163,7 +192,7 @@ function showSticker(kind) {
   el.stickerText.className = `stickerText ${kind === "wrong" ? "stickerText--wrong" : ""}`;
 
   const duration = kind === "correct" ? 6000 : 3000;
-  stickerTimer = setTimeout(() => clearSticker(), duration);
+  stickerTimer = setTimeout(clearSticker, duration);
 }
 
 function renderBadge() {
@@ -192,7 +221,20 @@ function renderOptions() {
   const q = currentQ();
   const s = status();
 
+  // question text
   el.questionText.textContent = q.text;
+
+  // ✅ show question image ONLY on question 5
+  if (el.questionImg) {
+    if (q.id === 5 && q.image) {
+      el.questionImg.src = q.image;     // e.g. "emart.jpg" or "./images/emart.jpg"
+      el.questionImg.hidden = false;
+    } else {
+      el.questionImg.hidden = true;
+      el.questionImg.removeAttribute("src");
+    }
+  }
+
   el.options.innerHTML = "";
 
   q.options.forEach((label, i) => {
@@ -213,10 +255,7 @@ function renderOptions() {
     btn.textContent = label;
     btn.setAttribute("role", "listitem");
 
-    // ✅ FIX: allow retry while popup still shows
-    // block only during the brief lock window
     btn.disabled = locked;
-
     btn.addEventListener("click", () => pickOption(i));
     el.options.appendChild(btn);
   });
@@ -249,8 +288,6 @@ function goNextQuestion() {
 
 function pickOption(i) {
   if (stage !== "quiz") return;
-
-  // prevent double-click spam only during brief lock
   if (locked) return;
 
   const q = currentQ();
@@ -278,7 +315,6 @@ function pickOption(i) {
   showSticker("wrong");
   renderQuiz();
 
-  // ✅ unlock quickly so user can try again immediately
   if (unlockTimer) clearTimeout(unlockTimer);
   unlockTimer = setTimeout(() => {
     selected = null;
