@@ -9,43 +9,43 @@ const correctImg = "./two_cats_high_five_no_background.png";
 const QUESTIONS = [
   {
     id: 1,
-    text: "Anh bi chamaig haana harsan be?",
-    options: ["Surguuli", "Uuland", "Zaaland", "Arig Anya"],
+    text: "When is the first time i saw you?",
+    options: ["School", "Mountain", "School Gym", "Arig Anya"],
     correctIndex: 2,
   },
   {
     id: 2,
-    text: "Minii urgiin ovog??",
+    text: "Whats my tribe name?",
     options: ["Borjigon", "Taij", "Taijuud", "Saljiud"],
     correctIndex: 1,
     popup: { correct: "ahh good job 🧡", wrong: "How dare you!" },
   },
   {
     id: 3,
-    text: "Minii idej chaddaggui zuil?",
-    options: ["Haluun Nogoo", "Songino", "Byslag", "Ooh"],
+    text: "What Something I cant eat?",
+    options: ["Spicy food", "Onion", "Cheese", "Fat"],
     correctIndex: 0,
     popup: {
       correct: "Yes baby its disgusting",
-      wrong: "Chi ch namaig medeh boloogv bainda",
+      wrong: "You dont know me at all :(",
     },
   },
   {
     id: 4,
-    text: "Ayalhiig hvsdeg gazar?",
+    text: "Where do i want to travel?",
     options: ["Europe", "USA", "Egypt", "Japan"],
     correctIndex: 3,
     popup: { correct: "Okay I'll pack my things", wrong: "Go by youreself :(" },
   },
   {
     id: 5,
-    text: "Ene zurgiig haana awhuulsan be?",
-    image: "emart.jpg", // put emart.jpg next to index.html OR use ./images/emart.jpg
+    text: "Where did I take this picture?",
+    image: "emart.jpg", 
     options: ["Airport", "China", "Emart", "PC"],
     correctIndex: 2,
     popup: {
-      correct: "Oi sanamj saitai baina Mundag",
-      wrong: "Chi ch unuudur buidan deer unthiin bainda",
+      correct: "Ohh you remember this day 🥰",
+      wrong: "Go sleep on the couch ",
     },
   },
 ];
